@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hippolyte Rogé</title>
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('lang');
+    var lang = saved || ((navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'fr');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang;
+  } catch (e) {}
+  // toujours démarrer en haut de page : on retire le #ancre de l'URL avant que
+  // le navigateur ne tente de scroller dessus (sinon un refresh après avoir
+  // cliqué "Voir les offres" atterrit directement sur la section Offres)
+  try {
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  } catch (e) {}
+})();
+window.addEventListener('load', function () { window.scrollTo(0, 0); });
+</script>
+<link rel="stylesheet" href="styles.css?v=15">
+</head>
+<body>
+
+<div class="glow-field"></div>
+<div class="bg-ribbons" id="bg-ribbons"></div>
+<div class="grid-lines"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">Hippolyte Rogé</div>
+    <nav>
+      <a href="#methode"><span data-lang="fr">Méthode</span><span data-lang="en">Method</span></a>
+      <a href="#offres"><span data-lang="fr">Offres</span><span data-lang="en">Offers</span></a>
+      <a href="#dashboard">Dashboard</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="lang-toggle" class="lang-switch" type="button" aria-label="Changer de langue / Switch language">
+        <span data-lang="fr">EN</span><span data-lang="en">FR</span>
+      </button>
+      <a href="#offres" class="btn btn-primary"><span data-lang="fr">Voir les offres</span><span data-lang="en">See the offers</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 data-lang="fr">Une lecture du marché claire, en un clin d'œil.</h1>
+      <h1 data-lang="en">A clear read of the market, in the blink of an eye.</h1>
+      <p class="subtitle" data-lang="fr">Avant, mon graphique ne ressemblait à rien et je ne comprenais rien à ce que je regardais. Ichimoku a changé ça : aujourd'hui, je sais enfin ce que je regarde.</p>
+      <p class="subtitle" data-lang="en">My charts used to make no sense, and I had no idea what I was looking at. Ichimoku changed that: today, I finally know what I'm looking at.</p>
+      <a href="#offres" class="btn btn-primary"><span data-lang="fr">Voir les offres</span><span data-lang="en">See the offers</span></a>
+    </div>
+    <div class="hero-visual">
+      <div class="card-ribbon-tilt">
+      <div class="card-ribbon">
+        <div class="dash-card-slot slot-1"><div class="dash-card" data-card="0">
+          <div class="dash-card-label">P&amp;L</div>
+          <div class="dash-card-value accent"><span class="js-count" data-target="427.5" data-prefix="+" data-suffix="&nbsp;€" data-decimals="2">0&nbsp;€</span></div>
+          <div class="dash-card-sub"><span data-lang="fr">Rentabilité</span><span data-lang="en">Return</span> <span class="js-count" data-target="26" data-prefix="+" data-suffix="%">0%</span></div>
+        </div></div>
+        <div class="dash-card-slot slot-2"><div class="dash-card" data-card="1">
+          <div class="dash-card-label">Kumo</div>
+          <div class="kumo-mini js-kumo"></div>
+        </div></div>
+        <div class="dash-card-slot slot-3"><div class="dash-card" data-card="2">
+          <svg viewBox="0 0 80 80" class="ring-svg">
+            <circle cx="40" cy="40" r="33" class="ring-track"/>
+            <circle cx="40" cy="40" r="33" class="ring-fill js-ring" data-target="68" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+            <text x="40" y="46" text-anchor="middle" class="ring-text"><tspan class="js-count" data-target="68" data-suffix="%">0%</tspan></text>
+          </svg>
+          <div class="dash-card-sub center"><span data-lang="fr">Taux de réussite</span><span data-lang="en">Win rate</span></div>
+        </div></div>
+        <div class="dash-card-slot slot-4"><div class="dash-card" data-card="3">
+          <div class="dash-card-label">Equity</div>
+          <svg viewBox="0 0 100 40" class="spark" preserveAspectRatio="none">
+            <polyline points="0,35 15,30 30,32 45,20 60,22 75,10 100,5" fill="none" stroke="#b07fe0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="100" class="js-spark" stroke-dashoffset="100"/>
+          </svg>
+        </div></div>
+        <div class="dash-card-slot slot-5"><div class="dash-card" data-card="4">
+          <div class="dash-card-value"><span class="js-count" data-target="34" data-decimals="0">0</span></div>
+          <div class="dash-card-sub"><span data-lang="fr">Trades ce mois</span><span data-lang="en">Trades this month</span></div>
+        </div></div>
+        <div class="dash-card-slot slot-6"><div class="dash-card" data-card="5">
+          <div class="dash-card-label"><span data-lang="fr">Marché</span><span data-lang="en">Market</span></div>
+          <div class="candles">
+            <span class="candle up js-candle" data-height="30"></span>
+            <span class="candle down js-candle" data-height="20"></span>
+            <span class="candle up js-candle" data-height="42"></span>
+            <span class="candle up js-candle" data-height="26"></span>
+            <span class="candle down js-candle" data-height="34"></span>
+          </div>
+        </div></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="probleme">
+    <h2 data-lang="fr">Tu ne t'y prends pas mal. T'es juste à l'étape où la plupart abandonnent.</h2>
+    <h2 data-lang="en">You're not doing it wrong. You're just at the stage where most people quit.</h2>
+    <div class="grid-3">
+      <div class="card-wrap">
+        <div class="card" data-lang="fr">Tu traces des lignes partout, tu empiles les indicateurs sans vraiment savoir quoi en faire, et tu finis avec un graphique illisible. Résultat : tu te prends chaque pullback dans la tronche.</div>
+        <div class="card" data-lang="en">You draw lines everywhere, stack indicators without really knowing what to do with them, and end up with an unreadable chart. Result: every pullback catches you in the face.</div>
+      </div>
+      <div class="card-wrap">
+        <div class="card" data-lang="fr">Tu as besoin qu'on te dise quoi faire (un signal, un indicateur, quelqu'un d'autre) parce que tu n'as jamais appris à décider seul.</div>
+        <div class="card" data-lang="en">You need someone to tell you what to do (a signal, an indicator, someone else) because you never learned to decide on your own.</div>
+      </div>
+      <div class="card-wrap">
+        <div class="card" data-lang="fr">Tu ne sais jamais vraiment quand agir (entrer, sortir, renforcer), alors tu le fais au hasard, ou pas du tout.</div>
+        <div class="card" data-lang="en">You never really know when to act (enter, exit, add to a position), so you do it at random, or not at all.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stream-divider" id="stream-divider">
+    <div class="stream-text">
+      <h3 data-lang="fr">Discipline. Précision. Autonomie.</h3>
+      <h3 data-lang="en">Discipline. Precision. Autonomy.</h3>
+      <p data-lang="fr">Une méthode claire pour lire le marché et décider seul.</p>
+      <p data-lang="en">A clear method to read the market and decide on your own.</p>
+    </div>
+  </div>
+
+  <section class="section reveal" id="qui-je-suis">
+    <h2 data-lang="fr">Qui je suis</h2>
+    <h2 data-lang="en">Who I am</h2>
+    <div class="split">
+      <img class="photo" src="assets/photo-hippolyte.jpg" alt="Hippolyte Rogé">
+      <div>
+        <p data-lang="fr">J'ai été attiré très vite par les marchés financiers : je voulais apprendre à investir, faire croître mon épargne. Comme tout le monde, j'ai démarré avec énormément d'ego, et le marché a pris un plaisir non dissimulé à le détruire. J'ai perdu l'intégralité de mon capital plusieurs fois, à force de répéter les mêmes erreurs.</p>
+        <p data-lang="en">I got drawn to financial markets very quickly: I wanted to learn to invest, to grow my savings. Like everyone, I started with a huge ego, and the market took real pleasure in destroying it. I lost my entire capital several times, repeating the same mistakes.</p>
+        <p data-lang="fr">Je me suis fait avoir par des groupes de signaux et des bots de trading, parce que je pensais le trading assez simple pour en déléguer la responsabilité à quelqu'un ou quelque chose d'autre, mais trop compliqué pour moi : incapable d'analyser un actif correctement, et avec confiance. J'ai testé à peu près tout ce qu'on peut tester, sans jamais vraiment comprendre ce que je regardais.</p>
+        <p data-lang="en">I got burned by signal groups and trading bots, because I thought trading was simple enough to hand the responsibility off to someone or something else, but too complicated for me: unable to analyze an asset properly, or with any confidence. I tried pretty much everything you can try, without ever really understanding what I was looking at.</p>
+        <p data-lang="fr">Sauf que la vie, c'est pas un cadeau : tu es le seul responsable de tes résultats. Rien d'autre ne doit en dépendre pour pouvoir investir et dormir sereinement.</p>
+        <p data-lang="en">Except life doesn't hand you anything: you're the only one responsible for your results. Nothing else should depend on it for you to invest and sleep soundly.</p>
+        <p data-lang="fr">Ichimoku a changé ça. C'est un indicateur simple à maîtriser qui donne une vision claire de la tendance et de tous les niveaux techniques en un coup d'œil, ce qui manquait à toutes les méthodes précédentes.</p>
+        <p data-lang="en">Ichimoku changed that. It's a simple indicator to master that gives a clear view of the trend and every technical level at a glance, exactly what every previous method was missing.</p>
+        <p data-lang="fr">Je n'ai pas de diplôme de finance. Un bac pro cuisine, et c'est tout. Tout ce que j'ai fini par apprendre, je l'ai appris par l'expérience et par les résultats, pas par la théorie.</p>
+        <p data-lang="en">I don't have a finance degree. A vocational cooking diploma, that's it. Everything I eventually learned, I learned through experience and results, not theory.</p>
+        <p data-lang="fr">Aujourd'hui, après 7 ans de trading, j'ai une routine en place et un dashboard pour tout tracker, pour faire les choses correctement, sans exception. Je trade depuis la Thaïlande, où je me suis expatrié grâce à ça.</p>
+        <p data-lang="en">Today, after 7 years of trading, I have a routine in place and a dashboard to track everything, to do things properly, without exception. I trade from Thailand, where I moved thanks to it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="methode">
+    <h2 data-lang="fr">La méthode</h2>
+    <h2 data-lang="en">The method</h2>
+    <p data-lang="fr">Je m'appuie sur Ichimoku, pas la version simplifiée qu'on trouve partout, mais une lecture complète : tendance, niveaux techniques, et zones de retournement, visibles en un coup d'œil sur n'importe quel actif.</p>
+    <p data-lang="en">I rely on Ichimoku, not the simplified version you find everywhere, but a complete read: trend, technical levels, and reversal zones, visible at a glance on any asset.</p>
+    <p data-lang="fr">La plupart des indicateurs ne répondent qu'à une seule question : le RSI mesure le momentum, les bandes de Bollinger la volatilité, les FVG les zones de déséquilibre. Aucun ne te dit, à lui seul, où est la tendance, où sont les niveaux qui comptent, et où le marché risque de se retourner. Ichimoku répond aux trois en même temps. C'est pour ça qu'une fois qu'on sait le lire, on arrête d'empiler les indicateurs.</p>
+    <p data-lang="en">Most indicators only answer one question: RSI measures momentum, Bollinger Bands measure volatility, FVGs measure imbalance zones. None of them tells you, on its own, where the trend is, where the levels that matter are, and where the market is likely to reverse. Ichimoku answers all three at once. That's why once you know how to read it, you stop stacking indicators.</p>
+    <p data-lang="fr">Le détail (comment je structure un plan de trading étape par étape avec) c'est le cœur de l'accompagnement, pas quelque chose que je peux résumer en 3 lignes ici.</p>
+    <p data-lang="en">The details (how I structure a trading plan with it, step by step) are the core of the coaching, not something I can sum up in three lines here.</p>
+    <p data-lang="fr">Que tu sois en train de structurer des trades actifs (scalping, intraday, swing) pour viser ton financement propfirm, ou que tu construises un portefeuille long terme, le principe reste le même : lire la tendance et les niveaux avant d'agir, pas après.</p>
+    <p data-lang="en">Whether you're structuring active trades (scalping, intraday, swing) to aim for your prop firm funding, or building a long-term portfolio, the principle stays the same: read the trend and the levels before acting, not after.</p>
+  </section>
+
+  <section class="section reveal" id="offres">
+    <h2 data-lang="fr">Offres</h2>
+    <h2 data-lang="en">Offers</h2>
+    <p data-lang="fr">Deux chemins, trading ou investissement — à toi de choisir ta profondeur d'accompagnement.</p>
+    <p data-lang="en">Two paths, trading or investing — you choose how deep you want the support to go.</p>
+
+    <h3 class="offers-subhead" data-lang="fr">Les parcours</h3>
+    <h3 class="offers-subhead" data-lang="en">The programs</h3>
+    <div class="grid-4">
+
+      <div class="card offer">
+        <h3 data-lang="fr">Parcours Trading</h3>
+        <h3 data-lang="en">Trading Program</h3>
+        <p class="price" data-lang="fr">500 €</p>
+        <p class="price" data-lang="en">€500</p>
+        <ul data-lang="fr">
+          <li>PDF + vidéos de formation</li>
+          <li>4h de coaching individuel</li>
+          <li>Dashboard verrouillé (accès de base)</li>
+        </ul>
+        <ul data-lang="en">
+          <li>PDF + video training</li>
+          <li>4h of individual coaching</li>
+          <li>Locked dashboard (basic access)</li>
+        </ul>
+        <p class="promise" data-lang="fr">Être capable d'analyser un actif et de dresser un plan de trading avec Ichimoku, toute stratégie confondue (scalping, intraday, swing)</p>
+        <p class="promise" data-lang="en">Be able to analyze an asset and build a trading plan with Ichimoku, across any strategy (scalping, intraday, swing)</p>
+      </div>
+
+      <div class="card offer">
+        <h3 data-lang="fr">Parcours Investissement</h3>
+        <h3 data-lang="en">Investing Program</h3>
+        <p class="price" data-lang="fr">400 $</p>
+        <p class="price" data-lang="en">$400</p>
+        <ul data-lang="fr">
+          <li>PDF + vidéos de formation</li>
+          <li>3h de coaching individuel</li>
+          <li>Dashboard verrouillé (accès de base)</li>
+        </ul>
+        <ul data-lang="en">
+          <li>PDF + video training</li>
+          <li>3h of individual coaching</li>
+          <li>Locked dashboard (basic access)</li>
+        </ul>
+        <p class="promise" data-lang="fr">Créer et gérer son portefeuille boursier en toute autonomie</p>
+        <p class="promise" data-lang="en">Build and manage your own stock portfolio with full autonomy</p>
+      </div>
+
+    </div>
+
+    <h3 class="offers-subhead" data-lang="fr">Le coaching rapproché</h3>
+    <h3 class="offers-subhead" data-lang="en">Close-proximity coaching</h3>
+    <div class="grid-4">
+
+      <div class="card offer offer-pilier">
+        <h3 data-lang="fr">Coaching Trading</h3>
+        <h3 data-lang="en">Trading Coaching</h3>
+        <p class="price" data-lang="fr">2000 €</p>
+        <p class="price" data-lang="en">€2000</p>
+        <ul data-lang="fr">
+          <li>PDF + vidéos inclus</li>
+          <li>Coaching individuel sur 3 mois (~18h), call hebdomadaire</li>
+          <li>Diagnostic, mise en place de la méthode, analyse de performance</li>
+          <li>Dashboard verrouillé (accès étendu)</li>
+        </ul>
+        <ul data-lang="en">
+          <li>PDF + videos included</li>
+          <li>3 months of individual coaching (~18h), weekly call</li>
+          <li>Diagnostic, method setup, performance analysis</li>
+          <li>Locked dashboard (extended access)</li>
+        </ul>
+        <p class="promise" data-lang="fr">Passer les phases de vérification propfirm</p>
+        <p class="promise" data-lang="en">Pass your prop firm verification phases</p>
+        <a class="btn-contact" href="mailto:hippolyte.roge07@gmail.com?subject=Coaching%20Trading" target="_blank" rel="noopener"><span data-lang="fr">Me contacter →</span><span data-lang="en">Get in touch →</span></a>
+      </div>
+
+      <div class="card offer offer-pilier">
+        <h3 data-lang="fr">Coaching Investissement</h3>
+        <h3 data-lang="en">Investing Coaching</h3>
+        <p class="price" data-lang="fr">1200 $</p>
+        <p class="price" data-lang="en">$1200</p>
+        <ul data-lang="fr">
+          <li>PDF + vidéos inclus</li>
+          <li>Coaching individuel dès le départ, ~10h</li>
+          <li>Analyse fondamentale approfondie + bases d'analyse technique pour optimiser tes entrées/sorties</li>
+          <li>Dashboard verrouillé (accès étendu)</li>
+        </ul>
+        <ul data-lang="en">
+          <li>PDF + videos included</li>
+          <li>Individual coaching from day one, ~10h</li>
+          <li>In-depth fundamental analysis + technical analysis basics to optimize your entries/exits</li>
+          <li>Locked dashboard (extended access)</li>
+        </ul>
+        <p class="promise" data-lang="fr">Une maîtrise complète et individuelle de l'investissement long terme, de l'analyse fondamentale à l'optimisation technique</p>
+        <p class="promise" data-lang="en">A complete, one-on-one mastery of long-term investing, from fundamental analysis to technical optimization</p>
+        <a class="btn-contact" href="mailto:hippolyte.roge07@gmail.com?subject=Coaching%20Investissement" target="_blank" rel="noopener"><span data-lang="fr">Me contacter →</span><span data-lang="en">Get in touch →</span></a>
+      </div>
+
+    </div>
+
+    <div class="offers-note">
+      <p data-lang="fr"><strong>Besoin de moins ?</strong> Sessions de coaching à la carte, sans engagement : 150 $ (1h) · 250 $ (2h) · 350 $ (3h). <a href="mailto:hippolyte.roge07@gmail.com?subject=Session%20à%20la%20carte">Écris-moi →</a></p>
+      <p data-lang="en"><strong>Need less?</strong> À la carte coaching sessions, no commitment: $150 (1h) · $250 (2h) · $350 (3h). <a href="mailto:hippolyte.roge07@gmail.com?subject=A%20la%20carte%20session">Email me →</a></p>
+    </div>
+  </section>
+
+  <section class="section reveal" id="dashboard">
+    <h2 data-lang="fr">Ton dashboard de trading</h2>
+    <h2 data-lang="en">Your trading dashboard</h2>
+    <div class="split">
+      <div class="placeholder-visual small">
+        <span data-lang="fr">[Capture dashboard]</span><span data-lang="en">[Dashboard screenshot]</span>
+      </div>
+      <div>
+        <p data-lang="fr">Chaque offre inclut l'accès à mon dashboard de trading, l'outil que j'utilise moi-même au quotidien, pas une maquette commerciale.</p>
+        <p data-lang="en">Every offer includes access to my trading dashboard, the tool I use myself every day, not a sales mockup.</p>
+        <p data-lang="fr">Il se débloque par clés au fur et à mesure de l'accompagnement, pour structurer ton analyse et ton suivi sans dépendre de moi en permanence.</p>
+        <p data-lang="en">It unlocks progressively, key by key, as the coaching moves forward, so you can structure your analysis and your tracking without depending on me forever.</p>
+        <p data-lang="fr">C'est le même outil qui me sert à tout tracker : mes trades, mes résultats, ma discipline. Je ne te donne pas juste une méthode à appliquer dans le vide : tu reçois le système que j'utilise pour rester rigoureux, pas seulement motivé.</p>
+        <p data-lang="en">It's the same tool I use to track everything: my trades, my results, my discipline. I'm not just handing you a method to apply in a vacuum: you get the actual system I use to stay disciplined, not just motivated.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="comment-ca-marche">
+    <h2 data-lang="fr">Comment ça marche</h2>
+    <h2 data-lang="en">How it works</h2>
+    <div class="timeline">
+      <div class="timeline-line"><div class="timeline-line-fill"></div></div>
+      <div class="timeline-row">
+        <div class="timeline-step">
+          <span class="timeline-dot"></span>
+          <h4 data-lang="fr">1. Tu choisis ton offre</h4>
+          <h4 data-lang="en">1. You choose your offer</h4>
+          <p data-lang="fr">Adaptée à ton profil et à ce que tu veux vraiment apprendre : trading actif ou investissement long terme.</p>
+          <p data-lang="en">Fits your profile and what you actually want to learn: active trading or long-term investing.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-dot"></span>
+          <h4 data-lang="fr">2. Tu te formes</h4>
+          <h4 data-lang="en">2. You train</h4>
+          <p data-lang="fr">À ton rythme : PDF et vidéos, pas de deadline, tu avances quand tu es prêt.</p>
+          <p data-lang="en">At your own pace: PDF and videos, no deadline, you move forward when you're ready.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-dot"></span>
+          <h4 data-lang="fr">3. Tu pratiques</h4>
+          <h4 data-lang="en">3. You practice</h4>
+          <p data-lang="fr">Calls réguliers, analyse de tes trades ou de ton portefeuille, ajustements au fur et à mesure.</p>
+          <p data-lang="en">Regular calls, analysis of your trades or your portfolio, adjustments along the way.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-dot"></span>
+          <h4 data-lang="fr">4. Tu deviens autonome</h4>
+          <h4 data-lang="en">4. You become autonomous</h4>
+          <p data-lang="fr">Tu analyses, tu décides, et tu n'as plus besoin de moi pour avancer.</p>
+          <p data-lang="en">You analyze, you decide, and you no longer need me to keep going.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="pas-ca">
+    <h2 data-lang="fr">Ce que cet accompagnement n'est pas</h2>
+    <h2 data-lang="en">What this coaching is not</h2>
+    <p data-lang="fr">Ce n'est pas une promesse de gains rapides, ni un signal de plus à suivre sans comprendre pourquoi. Ce n'est pas une méthode miracle, et je ne peux pas garantir que tu passeras tes phases de vérification propfirm au premier essai.</p>
+    <p data-lang="en">This isn't a promise of fast gains, or one more signal to follow without understanding why. It's not a miracle method, and I can't guarantee you'll pass your prop firm verification on the first try.</p>
+    <p data-lang="fr">Le trading et l'investissement comportent des risques. Une bonne méthode permet d'éviter des erreurs et de prendre tes décisions avec plus de recul, pas de gagner à tous les coups.</p>
+    <p data-lang="en">Trading and investing carry risk. A good method helps you avoid mistakes and make decisions with more perspective, not win every single time.</p>
+    <p data-lang="fr">Ce n'est pas non plus un service passif. Tu devras apprendre à lire tes graphiques toi-même, prendre tes propres décisions, et t'entraîner. Je ne vais pas trader à ta place, et je ne vends pas de signaux à suivre les yeux fermés.</p>
+    <p data-lang="en">It's not a passive service either. You'll need to learn to read your own charts, make your own decisions, and train yourself. I won't trade for you, and I don't sell signals to follow blindly.</p>
+  </section>
+
+  <section class="section cta-final reveal" id="contact">
+    <h2 data-lang="fr">Prêt à démarrer ?</h2>
+    <h2 data-lang="en">Ready to get started?</h2>
+    <a href="#offres" class="btn btn-primary"><span data-lang="fr">Voir les offres</span><span data-lang="en">See the offers</span></a>
+  </section>
+
+</main>
+
+<footer>
+  <p>Hippolyte Rogé — <a href="mailto:hippolyte.roge07@gmail.com">hippolyte.roge07@gmail.com</a></p>
+  <!-- LinkedIn : à ajouter une fois le profil créé -->
+</footer>
+
+<script>
+  document.getElementById('lang-toggle').addEventListener('click', function () {
+    var current = document.documentElement.getAttribute('data-lang');
+    var next = current === 'fr' ? 'en' : 'fr';
+    document.documentElement.setAttribute('data-lang', next);
+    document.documentElement.lang = next;
+    try { localStorage.setItem('lang', next); } catch (e) {}
+  });
+
+  const els = document.querySelectorAll('.reveal');
+  // garde le déclenchement de la cascade des cartes (.in), indépendant du fondu continu ci-dessous
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .15 });
+  els.forEach(el => io.observe(el));
+
+  // fondu/titre piloté en continu par la position de scroll réelle : la section
+  // apparaît en entrant, reste pleine, puis disparaît en sortant par le haut
+  // (pas un simple interrupteur on/off déclenché une fois)
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  // timeline "Comment ça marche" : se joue une fois comme une vidéo, pas au
+  // premier bout de section visible mais au moment précis où le titre est
+  // complètement apparu (même instant que le --reveal=1 de la section, calculé
+  // plus bas par updateScrollReveal) ; minuterie indépendante du scroll ensuite.
+  // Juste après le titre, rien d'autre n'est visible pendant 2s (noir complet),
+  // puis le premier point + son texte apparaissent et la barre avance point à point.
+  const timelineSection = document.getElementById('comment-ca-marche');
+  const timelineDots = document.querySelectorAll('#comment-ca-marche .timeline-step');
+  const TIMELINE_START_DELAY = 2000;
+  const TIMELINE_DURATION = 4500; // doit correspondre à la transition de .timeline-line-fill
+  let timelinePlayed = false;
+  function playTimeline() {
+    if (timelinePlayed || !timelineSection) return;
+    timelinePlayed = true;
+    setTimeout(() => {
+      timelineSection.classList.add('playing');
+      timelineDots.forEach((step, i) => {
+        const delay = (i / Math.max(1, timelineDots.length - 1)) * TIMELINE_DURATION;
+        setTimeout(() => step.classList.add('active'), delay);
+      });
+    }, TIMELINE_START_DELAY);
+  }
+
+  function updateScrollReveal() {
+    const vh = window.innerHeight;
+    // tout en bas de page, il n'y a plus assez de scroll disponible pour que la
+    // dernière section (courte, suivie d'un footer court) atteigne "entrée à 100%"
+    // selon la formule normale : dans ce cas on force l'affichage complet de tout
+    // ce qui est encore visible, plutôt que de la laisser bloquée à mi-fondu
+    const maxScroll = document.documentElement.scrollHeight - vh;
+    const atBottom = window.scrollY >= maxScroll - 2;
+    els.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      let progress;
+      if (atBottom && rect.top < vh && rect.bottom > 0) {
+        progress = 1;
+      } else {
+        const enter = clamp((vh * 0.9 - rect.top) / (vh * 0.55), 0, 1);
+        const exit = clamp((rect.bottom - vh * 0.05) / (vh * 0.35), 0, 1);
+        progress = Math.min(enter, exit);
+      }
+      el.style.setProperty('--reveal', progress.toFixed(3));
+      if (el === timelineSection && progress >= 1) playTimeline();
+    });
+    requestAnimationFrame(updateScrollReveal);
+  }
+  requestAnimationFrame(updateScrollReveal);
+
+  // animation d'apparition du contenu des cartes du hero (chiffres qui comptent,
+  // anneau/sparkline qui se dessinent, bougies qui poussent), synchronisée avec
+  // le moment où chaque carte passe de face pendant la rotation continue du ruban
+  (function () {
+    const CYCLE = 24; // doit correspondre à la durée de @keyframes ribbonSpin
+    const ACTIVE_WINDOW = 1.3;
+    const SLOT_ANGLES = [0, 60, 120, 180, 240, 300];
+
+    const cardStates = Array.from(document.querySelectorAll('.dash-card[data-card]')).map((card, i) => {
+      const angle = SLOT_ANGLES[i];
+      const frontTime = ((360 - angle) % 360) * CYCLE / 360;
+      return {
+        frontTime,
+        triggered: false,
+        countStart: null,
+        counters: Array.from(card.querySelectorAll('.js-count')),
+        ring: card.querySelector('.js-ring'),
+        spark: card.querySelector('.js-spark'),
+        kumo: card.querySelector('.js-kumo'),
+        candles: Array.from(card.querySelectorAll('.js-candle')),
+      };
+    });
+
+    function formatNumber(el, value) {
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      el.innerHTML = prefix + value.toFixed(decimals).replace('.', ',') + suffix;
+    }
+    function resetCard(state) {
+      state.counters.forEach((el) => formatNumber(el, 0));
+      if (state.ring) state.ring.style.strokeDashoffset = '100';
+      if (state.spark) state.spark.style.strokeDashoffset = '100';
+      if (state.kumo) state.kumo.classList.remove('in');
+      state.candles.forEach((c) => { c.style.transform = 'scaleY(0)'; });
+      state.countStart = null;
+    }
+    function triggerCard(state, now) {
+      if (state.ring) {
+        const target = parseFloat(state.ring.dataset.target || '0');
+        state.ring.style.strokeDashoffset = String(100 - target);
+      }
+      if (state.spark) state.spark.style.strokeDashoffset = '0';
+      if (state.kumo) state.kumo.classList.add('in');
+      state.candles.forEach((c) => { c.style.transform = 'scaleY(1)'; });
+      state.countStart = now;
+    }
+    cardStates.forEach(resetCard);
+
+    function tickCards() {
+      const now = performance.now() / 1000;
+      const cyclePos = now % CYCLE;
+      cardStates.forEach((state) => {
+        const since = (cyclePos - state.frontTime + CYCLE) % CYCLE;
+        if (since < ACTIVE_WINDOW) {
+          if (!state.triggered) { triggerCard(state, now); state.triggered = true; }
+          if (state.countStart != null) {
+            const p = Math.min(1, (now - state.countStart) / ACTIVE_WINDOW);
+            state.counters.forEach((el) => {
+              const target = parseFloat(el.dataset.target || '0');
+              formatNumber(el, target * p);
+            });
+          }
+        } else {
+          state.triggered = false;
+        }
+        if (since > CYCLE - 1 && since < CYCLE) resetCard(state);
+      });
+      requestAnimationFrame(tickCards);
+    }
+    requestAnimationFrame(tickCards);
+  })();
+</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module">
+  import * as THREE from "three";
+
+  // fond : sphère de particules qui réagit à la souris, d'après la référence
+  // Spline "Particles" (auroregmbt) — effet standard, fiable, performant
+  const container = document.getElementById('bg-ribbons');
+  if (container && window.WebGLRenderingContext) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 6);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // galaxie / voie lactée : nuage dense au centre (violet/rose/bleu, pas vert)
+    // qui s'éclaircit vers les bords, visible uniquement à partir d'Offres
+    const COUNT = 6000;
+    const GRADIUS = 3.4;
+    const positions = new Float32Array(COUNT * 3);
+    const basePositions = new Float32Array(COUNT * 3);
+    const colors = new Float32Array(COUNT * 3);
+    const colorCore = new THREE.Color(0xf3d6ff);
+    const colorMid = new THREE.Color(0x9a63d6);
+    const colorEdge = new THREE.Color(0x5a7bdc);
+    for (let i = 0; i < COUNT; i++) {
+      const rr = Math.pow(Math.random(), 2.2) * GRADIUS;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      const x = rr * Math.sin(phi) * Math.cos(theta);
+      const y = rr * Math.sin(phi) * Math.sin(theta) * 0.55;
+      const z = rr * Math.cos(phi) * 0.7;
+      const ix = i * 3;
+      positions[ix] = x; positions[ix + 1] = y; positions[ix + 2] = z;
+      basePositions[ix] = x; basePositions[ix + 1] = y; basePositions[ix + 2] = z;
+      const t = rr / GRADIUS;
+      const col = t < 0.4
+        ? colorCore.clone().lerp(colorMid, t / 0.4)
+        : colorMid.clone().lerp(colorEdge, (t - 0.4) / 0.6);
+      colors[ix] = col.r; colors[ix + 1] = col.g; colors[ix + 2] = col.b;
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.032,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    const secOffres = document.getElementById('offres');
+    function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+
+    const mouseNDC = new THREE.Vector2(0, 0);
+    const raycaster = new THREE.Raycaster();
+    const interactPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    const mouseWorld = new THREE.Vector3();
+    let hasMouse = false;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      hasMouse = true;
+    });
+
+    const REPEL_RADIUS = 1.1;
+    const REPEL_STRENGTH = 0.65;
+    const posAttr = geometry.attributes.position;
+
+    let clock = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      clock += 0.005;
+
+      // la galaxie dérive dans l'espace (trajectoire en huit) au lieu de juste
+      // tourner sur place
+      points.position.x = Math.sin(clock * 0.6) * 1.1;
+      points.position.y = Math.sin(clock * 1.2) * 0.5;
+
+      // visibilité pilotée par le scroll : la galaxie n'apparaît qu'à partir
+      // de la section Offres
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      if (secOffres) {
+        const galaxyStart = secOffres.offsetTop - vh * 0.4;
+        material.opacity = clamp01((scrollY - galaxyStart) / (vh * 0.6)) * .85;
+      }
+
+      if (hasMouse) {
+        raycaster.setFromCamera(mouseNDC, camera);
+        raycaster.ray.intersectPlane(interactPlane, mouseWorld);
+      }
+
+      const arr = posAttr.array;
+      for (let i = 0; i < COUNT; i++) {
+        const ix = i * 3;
+        let px = arr[ix], py = arr[ix + 1], pz = arr[ix + 2];
+        px += (basePositions[ix] - px) * 0.05;
+        py += (basePositions[ix + 1] - py) * 0.05;
+        pz += (basePositions[ix + 2] - pz) * 0.05;
+        if (hasMouse) {
+          const dx = px - mouseWorld.x, dy = py - mouseWorld.y, dz = pz - mouseWorld.z;
+          const distSq = dx * dx + dy * dy + dz * dz;
+          // rayon irrégulier par particule (pas une limite sphérique nette) +
+          // tourbillon plutôt qu'une poussée radiale pure, pour un effet
+          // plus "nuage dispersé" que "bulle qui repousse"
+          const localRadius = REPEL_RADIUS * (0.7 + ((i * 2654435761) % 1000) / 1000 * 0.6);
+          if (distSq < localRadius * localRadius) {
+            const dist = Math.sqrt(distSq) || 0.001;
+            const force = (1 - dist / localRadius) * REPEL_STRENGTH;
+            const swirl = force * 0.8;
+            px += (dx / dist) * force - (dy / dist) * swirl;
+            py += (dy / dist) * force + (dx / dist) * swirl;
+            pz += (dz / dist) * force;
+          }
+        }
+        arr[ix] = px; arr[ix + 1] = py; arr[ix + 2] = pz;
+      }
+      posAttr.needsUpdate = true;
+      points.rotation.y += 0.0012;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+</script>
+
+<script type="module">
+  import * as THREE from "three";
+
+  // "Clarity Stream" : un vrai espace dédié entre les deux sections (pas un
+  // fond qui apparaît en fondu), avec la vague qui ondule réellement en
+  // continu — on reconstruit la courbe à chaque frame, pas juste la texture
+  // qui défile sur une forme figée
+  const streamEl = document.getElementById('stream-divider');
+  if (streamEl && window.WebGLRenderingContext) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, streamEl.clientWidth / streamEl.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(streamEl.clientWidth, streamEl.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    streamEl.appendChild(renderer.domElement);
+
+    // dizaines de fins filaments (pas un seul tube épais) : c'est ça qui donne
+    // l'effet "fibre optique" de la référence, chacun avec sa propre teinte
+    // le long d'un dégradé bleu → violet → rose
+    const NUM_STRANDS = 28;
+    const SEG = 90;
+    const colorStart = new THREE.Color(0x6a93e0);
+    const colorMid = new THREE.Color(0xb07fe0);
+    const colorEnd = new THREE.Color(0xe08fc0);
+    const strands = [];
+
+    for (let s = 0; s < NUM_STRANDS; s++) {
+      const sN = s / (NUM_STRANDS - 1);
+      const geo = new THREE.BufferGeometry();
+      const posArr = new Float32Array((SEG + 1) * 3);
+      geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+      const col = sN < 0.5
+        ? colorStart.clone().lerp(colorMid, sN / 0.5)
+        : colorMid.clone().lerp(colorEnd, (sN - 0.5) / 0.5);
+      const mat = new THREE.LineBasicMaterial({
+        color: col,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const line = new THREE.Line(geo, mat);
+      scene.add(line);
+      strands.push({
+        posArr,
+        geo,
+        offsetY: (sN - 0.5) * 1.3,
+        phase: s * 0.37,
+        ampVar: 0.85 + ((s * 37) % 100) / 100 * 0.3,
+      });
+    }
+
+    function updateStrands(time) {
+      strands.forEach((st) => {
+        const arr = st.posArr;
+        for (let i = 0; i <= SEG; i++) {
+          const t = i / SEG;
+          const x = (t - 0.5) * 11.5;
+          const y = Math.sin(t * Math.PI * 1.3 - 0.3 + time * 0.6) * 1.3 * st.ampVar - 0.3
+            + Math.sin(t * Math.PI * 3.1 + time * 0.9 + st.phase * 0.2) * 0.15
+            + st.offsetY * 0.18;
+          const z = Math.sin(t * Math.PI * 2 + time * 0.4 + st.phase) * 0.3;
+          const ix = i * 3;
+          arr[ix] = x; arr[ix + 1] = y; arr[ix + 2] = z;
+        }
+        st.geo.attributes.position.needsUpdate = true;
+      });
+    }
+
+    let time = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.012;
+      updateStrands(time);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      const w = streamEl.clientWidth, h = streamEl.clientHeight;
+      if (!w || !h) return;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  }
+</script>
+
+</body>
+</html>
