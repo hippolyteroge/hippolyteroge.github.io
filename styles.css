@@ -14,8 +14,6 @@
 * { box-sizing: border-box; }
 
 /* bascule de langue : un seul DOM, on masque la langue inactive */
-html[data-lang="fr"] [data-lang="en"] { display: none !important; }
-html[data-lang="en"] [data-lang="fr"] { display: none !important; }
 
 .nav-actions {
   display: flex;
